@@ -1,0 +1,9 @@
+@import url(1000.css) screen and (max-width:1279px);
+@import url(480.css) screen and (max-width:999px);
+@import url(320.css) screen and (max-width:479px);
+
+@media screen and (max-width: 1200px) and (min-width: 1000px) {
+	.navigation-list {
+		font-size: 11px;
+	}
+}

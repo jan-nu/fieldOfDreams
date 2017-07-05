@@ -1,0 +1,26 @@
+.media .media-list > li {
+	/*width:25% !important;*/
+}
+
+.media .media-list > li+li+li+li+li {
+	/*display:none;*/
+}
+.media .media-item-image img {
+	margin:0 auto;
+}
+
+@media screen and (max-width:1179px){
+	.alphabet-content-right {
+		margin:0 -10px 0 0;
+	}
+	.alphabet-slider {
+		max-width:100%;
+		padding-right:0;
+		background-size:cover;
+		height:auto;
+	}
+	.alphabet-list > li.width-auto {
+		padding-left:10px;
+		width:20%;
+	}
+}

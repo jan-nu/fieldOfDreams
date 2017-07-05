@@ -1,0 +1,779 @@
+/*!
+ * fastshell
+ * Fiercely quick and opinionated front-ends
+ * https://HosseinKarami.github.io/fastshell
+ * @author Hossein Karami
+ * @version 1.0.5
+ * Copyright 2017. MIT licensed.
+ */
+.clear:before, .clear:after {
+  content: ' ';
+  display: table; }
+
+.clear {
+  *zoom: 1; }
+  .clear:after {
+    clear: both; }
+
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Remove default margin.
+ */
+body {
+  margin: 0; }
+
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11
+ * and Firefox.
+ * Correct `block` display not defined for `main` in IE 11.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block; }
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
+ */
+[hidden],
+template {
+  display: none; }
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+a:active,
+a:hover {
+  outline: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold; }
+
+/**
+ * Address styling not present in Safari and Chrome.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+img {
+  border: 0; }
+
+/**
+ * Correct overflow not hidden in IE 9/10/11.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari.
+ */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+hr {
+  box-sizing: content-box;
+  height: 0; }
+
+/**
+ * Contain overflow in all browsers.
+ */
+pre {
+  overflow: auto; }
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set.
+ */
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+  margin: 0;
+  /* 3 */ }
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10/11.
+ */
+button {
+  overflow: visible; }
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+ * Correct `select` style inheritance in Firefox.
+ */
+button,
+select {
+  text-transform: none; }
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */ }
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled],
+html input[disabled] {
+  cursor: default; }
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+input {
+  line-height: normal; }
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
+ *    (include `-moz` to future-proof).
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  /* 2 */
+  box-sizing: content-box; }
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+optgroup {
+  font-weight: bold; }
+
+/* Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+td,
+th {
+  padding: 0; }
+
+.nav ul {
+  list-style: none; }
+
+.content-fieldofdreams {
+  padding: 0;
+  position: relative; }
+
+.fieldofdreams {
+  background: url(../img/memo-bg.jpg) no-repeat center center;
+  background-size: cover;
+  min-height: 806px;
+  height: 100%;
+  text-align: center;
+  padding: 0;
+  font: 24px/1.1 'a_conceptotitulnrfyregular','Roboto Condensed', Arial, Tahoma, Verdana, sans-serif;
+  position: relative; }
+  .fieldofdreams__wrap {
+    width: 986px;
+    margin: 0 auto; }
+  .fieldofdreams__content {
+    position: relative; }
+  .fieldofdreams__title {
+    color: #6a396a;
+    padding: 25px 0 32px;
+    font-size: 18px;
+    text-transform: uppercase; }
+
+.fieldofdreams-round {
+  height: 66px;
+  width: 100%;
+  margin: 4px 0 3px;
+  background-color: #fff5ff;
+  display: table;
+  vertical-align: middle;
+  text-align: left; }
+  .fieldofdreams-round__name {
+    display: table-cell;
+    vertical-align: middle;
+    width: 142px;
+    padding-left: 19px;
+    color: #6a396a;
+    font-size: 30px;
+    line-height: 1; }
+  .fieldofdreams-round__question {
+    display: table-cell;
+    vertical-align: middle;
+    font: 400 18px/22px "Roboto", sans-serif;
+    padding-bottom: 3px; }
+
+.fieldofdreams-game {
+  position: relative;
+  padding-top: 177px; }
+  .fieldofdreams-game__info {
+    float: left;
+    width: calc(100% - 690px);
+    text-align: left;
+    color: #6a396a;
+    text-transform: uppercase;
+    box-sizing: border-box; }
+  .fieldofdreams-game__points {
+    padding-top: 32px; }
+    .fieldofdreams-game__points-caption {
+      display: inline-block;
+      font-size: 18px;
+      padding-bottom: 40px; }
+    .fieldofdreams-game__points-value {
+      display: inline-block;
+      font-size: 48px;
+      padding-left: 18px; }
+    .fieldofdreams-game__points-msg {
+      font-size: 18px;
+      line-height: 30px;
+      padding-bottom: 42px;
+      display: none; }
+  .fieldofdreams-game__buttons {
+    text-align: left; }
+  .fieldofdreams-game__prize {
+    display: none; }
+
+.fieldofdreams-drum {
+  position: relative;
+  float: left;
+  width: 690px;
+  box-sizing: border-box;
+  padding-left: 55px; }
+  .fieldofdreams-drum__img-wrap {
+    width: 566px;
+    height: 566px; }
+  .fieldofdreams-drum__img {
+    background: url(../img/drum.png) no-repeat center;
+    width: 100%;
+    height: 100%; }
+  .fieldofdreams-drum__arrow {
+    position: absolute;
+    width: 44px;
+    height: 40px;
+    background: url(../img/sprite.png) no-repeat 0 0;
+    bottom: -28px;
+    left: 50%;
+    -ms-transform: translateX(-28px);
+        transform: translateX(-28px); }
+
+.fieldofdreams-field {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 72px; }
+  .fieldofdreams-field__list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; }
+  .fieldofdreams-field__item {
+    width: 44px;
+    height: 55px;
+    background: #cbb6cb;
+    float: left;
+    margin: 0 3px 3px 0;
+    box-sizing: border-box;
+    font-size: 30px; }
+    .fieldofdreams-field__item:last-child {
+      margin: 0 0 3px; }
+    .fieldofdreams-field__item.open .fieldofdreams-field__letter {
+      background: #747373;
+      background: linear-gradient(to right top, #5d5d5d, #747373); }
+  .fieldofdreams-field__letter {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: #5d5d5d;
+    background: linear-gradient(to right top, #333333, #5d5d5d);
+    color: #fff;
+    line-height: 55px;
+    text-align: center;
+    font-size: 30px; }
+
+.fieldofdreams-letters {
+  width: 894px;
+  margin: 0 auto;
+  padding: 65px 0 62px; }
+  .fieldofdreams-letters__list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+  .fieldofdreams-letters__item {
+    float: left;
+    margin: 0 3px 3px 0;
+    background-color: #f5a141;
+    color: #fff;
+    width: 44px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 30px;
+    padding-top: 2px;
+    box-sizing: border-box;
+    cursor: pointer; }
+    .fieldofdreams-letters__item.disabled {
+      cursor: default;
+      background-color: #717171; }
+      .fieldofdreams-letters__item.disabled.wrong {
+        border: 2px solid #f98a3e;
+        background-color: #979797; }
+  .fieldofdreams-letters__btn {
+    float: left; }
+
+.btn-rotate-drum {
+  text-align: left;
+  color: #3c8b32;
+  border-bottom: 2px dotted #3c8b32;
+  font-size: 18px;
+  position: relative;
+  margin-left: 48px;
+  transition: all .3s; }
+  .btn-rotate-drum:before {
+    position: absolute;
+    left: -48px;
+    top: -9px;
+    content: '';
+    width: 41px;
+    height: 37px;
+    background: url(../img/sprite.png) no-repeat -48px -3px; }
+  .btn-rotate-drum:hover {
+    border-bottom: 2px dotted transparent; }
+
+.btn-stop-drum {
+  text-align: left;
+  color: #f5a141;
+  border-bottom: 2px dotted #f5a141;
+  margin-left: 48px;
+  transition: all .3s;
+  font-size: 18px;
+  display: none;
+  position: relative; }
+  .btn-stop-drum:before {
+    position: absolute;
+    left: -48px;
+    top: -6px;
+    content: '';
+    width: 41px;
+    height: 37px;
+    background: url(../img/sprite.png) no-repeat -93px -3px; }
+  .btn-stop-drum:hover {
+    border-bottom: 2px dotted transparent; }
+
+.btn-know-word {
+  border-radius: 0;
+  height: 55px;
+  line-height: 55px;
+  box-sizing: border-box;
+  font-size: 30px;
+  padding: 2px 0 0;
+  width: 232px; }
+
+.btn-get-prize {
+  color: #3c8b32;
+  font-size: 18px;
+  text-decoration: none;
+  border-bottom: 2px dotted #3c8b32;
+  transition: all .3s;
+  text-align: left;
+  margin-right: 16px; }
+  .btn-get-prize:hover {
+    border-bottom: 2px dotted transparent; }
+
+.btn-reject-prize {
+  color: #d83a3a;
+  font-size: 18px;
+  text-decoration: none;
+  border-bottom: 2px dotted #d83a3a;
+  transition: all .3s;
+  text-align: left; }
+  .btn-reject-prize:hover {
+    border-bottom: 2px dotted transparent; }
+
+.input.fieldofdreams-input {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 0;
+  font: 400 14px/16px "Roboto", sans-serif;
+  padding: 8px 12px;
+  color: #003333;
+  border: 1px solid #c3c3c3; }
+
+.btn.btn-create-cross {
+  height: 66px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 19px;
+  line-height: 24px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 10px 25px 0; }
+
+.fieldofdreams-info {
+  display: table;
+  width: 100%;
+  padding-bottom: 30px; }
+  .fieldofdreams-info__left {
+    display: table-cell; }
+  .fieldofdreams-info__caption {
+    margin-bottom: 10px; }
+  .fieldofdreams-info__desc-input {
+    height: 66px; }
+  .fieldofdreams-info__right {
+    display: table-cell;
+    width: 190px;
+    padding-left: 15px;
+    vertical-align: bottom; }
+
+.fieldofdreams-area {
+  display: table;
+  padding-bottom: 35px;
+  width: 100%;
+  min-height: 605px; }
+
+.fieldofdreams-popup-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 500;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: none; }
+
+.fieldofdreams-popup {
+  font-family: 'a_conceptotitulnrfyregular','Roboto Condensed', Arial, Tahoma,  Verdana, sans-serif;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+  background: rgba(106, 57, 106, 0.73);
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  z-index: 520; }
+  .fieldofdreams-popup__inner {
+    padding: 22px 22px 42px; }
+  .fieldofdreams-popup__title {
+    font-size: 24px;
+    padding-bottom: 42px; }
+
+.fieldofdreams-popup-end {
+  width: 506px;
+  height: 540px;
+  display: none; }
+  .fieldofdreams-popup-end__time {
+    padding: 0 27px 25px;
+    font-size: 24px;
+    overflow: hidden; }
+    .fieldofdreams-popup-end__time .left {
+      float: left;
+      margin: 0 10px 0; }
+    .fieldofdreams-popup-end__time .right {
+      float: right;
+      text-align: right; }
+  .fieldofdreams-popup-end__best {
+    padding: 80px 0 27px;
+    background: url("../img/stars.png") no-repeat center top;
+    background-size: 144px auto; }
+  .fieldofdreams-popup-end__best-result {
+    font-size: 24px;
+    padding-bottom: 7px; }
+  .fieldofdreams-popup-end__best-time {
+    font-size: 60px; }
+  .fieldofdreams-popup-end__retry {
+    font-size: 24px; }
+  .fieldofdreams-popup-end__buttons {
+    padding-top: 60px; }
+    .fieldofdreams-popup-end__buttons .btn-white {
+      font-size: 18px; }
+
+.fieldofdreams-popup-giveup {
+  width: 506px;
+  height: 292px;
+  display: none; }
+  .fieldofdreams-popup-giveup__txt {
+    font-size: 40px; }
+
+.fieldofdreams-popup-error {
+  width: 506px;
+  height: 318px;
+  display: none; }
+  .fieldofdreams-popup-error__txt {
+    font-size: 40px; }
+  .fieldofdreams-popup-error__error {
+    font-size: 32px; }
+
+::-moz-selection {
+  background: #333;
+  color: #fff;
+  text-shadow: none; }
+
+::selection {
+  background: #333;
+  color: #fff;
+  text-shadow: none; }
+
+::-moz-selection {
+  background: #333;
+  color: #fff;
+  text-shadow: none; }
+
+::-webkit-selection {
+  background: #333;
+  color: #fff;
+  text-shadow: none; }
+
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important; }
+  a,
+  a:visited {
+    text-decoration: underline; }
+  a[href]:after {
+    content: " (" attr(href) ")"; }
+  abbr[title]:after {
+    content: " (" attr(title) ")"; }
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: ""; }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid; }
+  thead {
+    display: table-header-group; }
+  tr,
+  img {
+    page-break-inside: avoid; }
+  img {
+    max-width: 100% !important; }
+  @page {
+    margin: 0.5cm; }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3; }
+  h2,
+  h3 {
+    page-break-after: avoid; } }
