@@ -39,6 +39,7 @@
 		vertical-align: middle;
 		width: 142px;
 		padding-left: 19px;
+		padding-right: 19px;
 		color: $violet;
 		font-size: 30px;
 		line-height: 1;
@@ -102,15 +103,17 @@
 	width: 690px;
 	box-sizing: border-box;
 	padding-left: 55px;
+	height: 310px;
+	overflow: hidden;
 	&__img-wrap {
 		width: 566px;
-		height: 566px;		
+		height: 566px;	
+		transform: translateY(-285px);	
 	}
 	&__img {
 		background: url(../img/drum.png) no-repeat center;
 		width: 100%;
 		height: 100%;
-		// transform: rotate(315deg);
 	}
 	&__arrow {
 		position: absolute;
@@ -119,7 +122,7 @@
 		background: url(../img/sprite.png) no-repeat 0 0;
 		bottom: -28px;
 		left: 50%;
-		transform: translateX(-28px);
+		transform: translateX(-24px);
 	}
 }
 
@@ -141,14 +144,35 @@
 		margin: 0 3px 3px 0;
 		box-sizing: border-box;
 		font-size: 30px;
+		position: relative;
+		transition: transform 1s;
+		transform-style: preserve-3d;
+		.front, .back {
+			display: block;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+		.back {
+			transform: rotateY(180deg);
+		}
 		&:last-child {
 			margin: 0 0 3px;
 		}
 		&.open {
+			transform: rotateY(180deg);
 			.fieldofdreams-field__letter {
 				background: #747373;
 				background: linear-gradient(to right top, #5d5d5d, #747373);
 			}
+		}
+		&.closed {
+			background: #5d5d5d;
+			background: linear-gradient(to right top, #333333, #5d5d5d);
+			color: #fff;
+			line-height: 55px;
+			text-align: center;
+			font-size: 30px;
 		}
 	}
 	&__letter {
@@ -201,9 +225,27 @@
 	&__btn {
 		float: left;
 	}
+	&__input.input {
+		box-sizing: border-box;
+		border: 2px solid $violet;
+		height: 55px;
+		line-height: 55px;
+		font-size: 30px;
+		width: 232px;
+		border-radius: 0;
+		padding: 3px 12px 0;
+		color: $violet;
+		font-family: 'a_conceptotitulnrfyregular','Roboto Condensed', Arial, Tahoma, Verdana, sans-serif;
+		text-transform: uppercase;
+		display: none;
+		text-align: center;
+	}
 }
 
 .btn {
+	&-white {
+		font-size: 24px;
+	}
 	&-rotate-drum {
 		text-align: left;
 		color: $green;
@@ -351,7 +393,7 @@
 	top: 0;
 	z-index: 500;
 	background-color: rgba(255,255,255,.7);
-	display: none;
+	// display: none;
 }
 
 .fieldofdreams-popup {
@@ -374,6 +416,56 @@
 	}
 }
 
+.fieldofdreams-popup-intro {
+	width: 506px;
+	height: 386px;
+	// display: none;
+	&__welcome {
+		font-size: 24px;
+	}
+	&__title {
+		font-size: 36px;
+		padding-bottom: 42px;
+	}
+	&__txt {
+		font-size: 18px;
+		line-height: 36px;
+		padding-bottom: 55px;
+	}
+	// .btn-white {
+	// 	font-size: 24px;
+	// }
+}
+
+.fieldofdreams-popup-congratulation {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 500;
+	background-color: rgba(255,255,255,.7);
+	display: none;
+	&__inner {
+		width: 400px;
+		height: 220px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		font-size: 48px;
+		text-align: center;
+		font-family: 'a_conceptotitulnrfyregular','Roboto Condensed', Arial, Tahoma,  Verdana, sans-serif;
+		position: absolute;
+		color: $violet;
+	}
+	&__title {
+		padding-bottom: 45px;
+	}
+	&__txt {
+
+	}
+}
+
 .fieldofdreams-popup-end {
 	width: 506px;
 	height: 540px;	
@@ -381,45 +473,42 @@
 	&__wrap {
 
 	}
-	&__time {
-		padding: 0 27px 25px;
-		font-size: 24px;
-		overflow: hidden;
-		.left{
-			float: left;
-			margin: 0 10px 0;
-		}
-		.right {
-			float: right;
-			text-align: right;
-		}
-	}
-	&__best {
+	&__result {
 		padding: 80px 0 27px;
 		background: url("../img/stars.png") no-repeat center top;
 		background-size: 144px auto;
+		&-txt {
+			font-size: 24px;
+			padding-bottom: 7px;
+			// padding-top: 36px;
+		}
+		&-amount {
+			font-size: 60px;
+		}
 	}
-	&__best-result {
+	&__best {
+		padding: 0 27px 25px;
 		font-size: 24px;
-		padding-bottom: 7px;
-	}
-	&__best-time {
-		font-size: 60px;
-
+		overflow: hidden;
+		&-result {
+			float: left;
+			margin: 0 10px 0;
+		}
+		&-points {
+			float: right;
+			text-align: right;
+		}
 	}
 	&__retry {
 		font-size: 24px;
 	}
 	&__buttons {
 		padding-top: 60px;
-		.btn-white {
-			font-size: 18px;
-		}
 	}
 }
 
-.fieldofdreams-popup-giveup {
-	width: 506px;
+.fieldofdreams-popup-failed {
+	width: 406px;
 	height: 292px;
 	display: none;
 	&__txt {
@@ -427,17 +516,6 @@
 	}
 }
 
-.fieldofdreams-popup-error {
-	width: 506px;
-	height: 318px;
-	display: none;
-	&__txt {
-		font-size: 40px;
-	}
-	&__error {
-		font-size: 32px;
-	}
-}
 
 
 

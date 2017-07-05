@@ -20,8 +20,6 @@
 	// Доступность барабана для вращения
 			isRotateEnable = true,
 
-	// Загаданное слово
-			secretWord = 'скрипка',
 	// Набранное количество очков
 			pointsAmount = 0,
 	// Доступность выбора буквы
@@ -33,19 +31,42 @@
 	// Выбор буквы на табло для открытия
 			isSelectLetterEnable = false,
 	// Индекс тура
-			roundIndex = 0;
+			roundIndex = 0,
+	// Признак суперфинала
+			isSuperFinal = false,
+
+	// Опции cookie
+    cookieOptions = {expires: 7, path: '/'};
 
 
   $(function () {
 
+  	// Сохранить результат в куки
+  	function saveResultToCookie() {
+			var cookieName = 'fieldOfDreams';
+			if ($.cookie(cookieName)) {
+				if (parseInt($.cookie(cookieName)) > parseInt(pointsAmount)) {
+					$('.fieldofdreams-popup-end__result-amount').text($.cookie(cookieName));
+				} else {					
+					$('.fieldofdreams-popup-end__result-amount').text(pointsAmount);
+					$.cookie(cookieName, pointsAmount, cookieOptions);
+				}
+			} else {
+				$('.fieldofdreams-popup-end__result-amount').text(pointsAmount);
+				$.cookie(cookieName, pointsAmount, cookieOptions);
+			}
+  	}
+
   	// Инициализация загаданного слова
   	function initSecretWord() {
-  		var wordLength = secretWord.length,
+  		var wordLength = questions[roundIndex]['word'].length,
   				cellsCount = 21,
   				index = Math.floor(cellsCount/2 - wordLength/2);
   		for(var i = index; i<index + wordLength; i++) {
-  			var letterHtml = '<span class="fieldofdreams-field__letter" data-letter="'
-  											+ secretWord[i-index] + '"></span>';
+  			var letterHtml = '<div class="front"></div><div class="back">' 
+		  								+ '<span class="fieldofdreams-field__letter" data-letter="'
+		  								+ questions[roundIndex]['word'][i-index] + '"></span>'
+		  								+ '</div>';
   			$('.fieldofdreams-field__list.game')
   				.find('.fieldofdreams-field__item').eq(i)
   				.append(letterHtml);
@@ -56,6 +77,9 @@
 
   	// Инициализация тура
   	function initRound() {
+  		isLetterEnable = false;
+  		isRotateEnable = true;
+
   		var roundName = '';
   		switch(roundIndex) {
   			case 0: {
@@ -72,17 +96,27 @@
   			} break;
   			case 4: {
 					roundName = 'суперфинал';
+					isSuperFinal = true;					
   			} break;
   		}
   		$('.fieldofdreams-round__name').text(roundName);
   		$('.fieldofdreams-round__question').text(questions[roundIndex]['desc']);
 
+  		$('.fieldofdreams-letters__input').val('').hide();
+  		$('.btn-know-word').show();
+
   		$('.fieldofdreams-drum__img').removeAttr('style');
   		rotatedAngle = 0;
   		easing = 'easeInSine';
   		stepAngle = 180;
-  		$('.fieldofdreams-game__points-msg').hide();
-  		$('.btn-rotate-drum').show();
+  		if(!isSuperFinal) {
+  			$('.fieldofdreams-game__points-msg').hide();
+  			$('.btn-rotate-drum').show();
+  		}
+  		else {
+  			$('.fieldofdreams-game__points-msg').text('Назовите слово целиком').show();
+  			$('.btn-rotate-drum').hide();
+  		}  			
 
   		$('.fieldofdreams-field__item, .fieldofdreams-letters__item').remove();
   		$('.fieldofdreams-field__list').each(function() {
@@ -138,7 +172,7 @@
   		})
   	}
 
-  	// Выбор буквы
+  	// Выбор буквы из списка
   	function selectLetter() {
   		$(document).on('click', '.fieldofdreams-letters__item', function() {
   			if(!isLetterEnable)
@@ -168,6 +202,37 @@
   		})
   	}
 
+  	// Получение очков после верного ответа
+  	function getPoints() {
+  		var msg = '';
+			if(sectors[currentSector]['points'] > 0) {
+				pointsAmount += sectors[currentSector]['points'];
+				msg = 'Верно! Вы получаете ' + sectors[currentSector]['points'] + ' очков';
+			} else {
+				switch (sectors[currentSector]['code']) {
+					case 'bankrupt': {
+						pointsAmount  = 0;
+						msg = 'Банкрот! Ваши очки обнуляются';
+					} break;
+					case 'x2': {							
+						msg = 'Верно! Вы получаете ' + pointsAmount + ' очков';
+						pointsAmount *=2;
+					} break;
+					case 'x3': {							
+						msg = 'Верно! Вы получаете ' + (pointsAmount * 2) + ' очков';
+						pointsAmount *=3;
+					} break;
+					case '0': {
+						msg = 'Верно!';
+					} break;
+				}
+			}
+			$('.fieldofdreams-game__points-value').fadeOut(function() {
+				$('.fieldofdreams-game__points-value').text(pointsAmount).fadeIn();
+			})				
+			$('.fieldofdreams-game__points-msg').text(msg);
+  	}
+
   	// Подсчет количества очков
   	function countPoints(count) {
   		var msg = '';
@@ -177,35 +242,7 @@
 				errorCount++;
 				checkGameFail();
   		} else {
-  			if(sectors[currentSector]['points'] > 0) {
-					pointsAmount += sectors[currentSector]['points'] * count;
-					msg = 'Верно! Вы получаете ' + sectors[currentSector]['points'] * count + ' очков';
-				} else {
-					switch (sectors[currentSector]['code']) {
-						case 'bankrupt': {
-							pointsAmount  = 0;
-							msg = 'Банкрот! Ваши очки обнуляются';
-						} break;
-						case 'x2': {							
-							msg = 'Верно! Вы получаете ' + pointsAmount + ' очков';
-							pointsAmount *=2;
-						} break;
-						case 'x3': {							
-							msg = 'Верно! Вы получаете ' + (pointsAmount * 2) + ' очков';
-							pointsAmount *=3;
-						} break;
-						case '0': {
-							msg = 'Верно!';
-						} break;
-					}
-
-				}
-				$('.fieldofdreams-game__points-value').fadeOut(function() {
-					$('.fieldofdreams-game__points-value').text(pointsAmount).fadeIn();
-				})				
-				// $('.fieldofdreams-game__points-msg').hide();		
-				$('.fieldofdreams-game__points-msg').text(msg);
-
+  			getPoints();			
 				setTimeout(function() {
 					checkGameWin();
 				}, 700);
@@ -213,14 +250,56 @@
   		}
   	}
 
+  	// Получить сообщение о победе в туре
+  	function getWinText() {
+  		var msg = '';
+  		switch(roundIndex) {
+  			case 0: {
+  				msg = 'Вы переходите<br>во 2 тур';
+  			} break;
+  			case 1: {
+  				msg = 'Вы переходите<br>в 3 тур';
+  			} break;
+  			case 2: {
+  				msg = 'Вы переходите<br>в финал';
+  			} break;
+  			case 3: {
+  				msg = 'Вы переходите<br>в суперфинал';
+  			} break;
+  		}
+  		return msg;
+  	}
+
+  	// Успешное прохождение раунда
+  	function winRound() {
+  		// Если не все туры пройдены, переход на следующий
+			if(roundIndex<4) {  				
+				var msg = getWinText();
+				roundIndex++;
+				$('.fieldofdreams-popup-congratulation__txt').html(msg);
+				$('.fieldofdreams-popup-congratulation').show();
+  			setTimeout(function() {
+					$('.fieldofdreams-popup-congratulation').fadeOut(function() {							
+						initRound();
+					});
+  			}, 3000);  				
+			} 
+			// Игра пройдена
+			else {
+				$('.fieldofdreams-popup-end, .fieldofdreams-popup-overlay').show();  	
+				$('.fieldofdreams-popup-end__best-points').text(pointsAmount);	
+				saveResultToCookie();		
+			}	
+  	}
+
+  	// Проверка на прохождение тура/всей игры
   	function checkGameWin() {
-  		if(!$('.fieldofdreams-field__item.closed').length) {
-  			alert('You win!!!');
-  			if(roundIndex<4) {
-  				roundIndex++;
-  				initRound();
-  			}  			
-  		} else {
+  		// Если все буквы отгаданы
+  		if(!$('.fieldofdreams-field__item.closed').length) {  			
+  				winRound();
+  		} 
+  		// Если не все буквы отгаданы, продолжение игры
+  		else {
   			$('.btn-rotate-drum').fadeIn();
   		}  		
   	}
@@ -228,20 +307,46 @@
   	// Проверка на количество сделанных ошибок и выход из игры в случае превышения 2 ошибок
   	function checkGameFail() {
   		if(errorCount>=3) {
-
+				$('.fieldofdreams-popup-failed, .fieldofdreams-popup-overlay').show();
   		} else {
-  			// $('.fieldofdreams-game__points-msg').hide();
 				$('.btn-rotate-drum').fadeIn();
   		}
   	}
+
+  	// Проверка слова целиком
+  	function checkFullWord() {
+  		var answer = questions[roundIndex]['word'].trim().toLowerCase(),
+  				shot = $('.fieldofdreams-letters__input').val().trim().toLowerCase();
+  		if(shot == answer) {
+  			getPoints();
+				winRound();
+  		} else {
+  			$('.fieldofdreams-popup-failed, .fieldofdreams-popup-overlay').show();
+  		}
+  	}
+
 
   	initRound();
   	selectLetter();
   	selectHiddenCell();
   	sectorPrize();  	
 
+		$('.start-game').on('click', function(e) {
+			e.preventDefault();
+			$('.fieldofdreams-popup-intro, .fieldofdreams-popup-overlay').hide();
+		});
 
-
+		$('.play-again').on('click', function(e) {
+			e.preventDefault();
+			$('.fieldofdreams-popup, .fieldofdreams-popup-overlay').hide();			
+			roundIndex = 0;
+			pointsAmount = 0;		
+			isSuperFinal = false;	
+			initRound();
+			$('.fieldofdreams-game__points-value').fadeOut(function() {
+				$('.fieldofdreams-game__points-value').text(pointsAmount).fadeIn();
+			})
+		})
 
   	$('.btn-rotate-drum').on('click', function(e) {
   		e.preventDefault();
@@ -251,13 +356,13 @@
   		$('.btn-rotate-drum').hide(); 
   		setTimeout(function() {
 				$('.btn-stop-drum').show(); 
-  		}, 1500);  				
+  		}, 3000);  				
   		$('.fieldofdreams-game__points-msg').hide();
   		isInfinite = true;
   		isStopRotate = false;
   		easing = 'easeInSine';
   		rotateSpeed = 3000;
-  		stepAngle = 180;
+  		stepAngle = 170;
 
   		// Выбор буквы недоступен
 			isLetterEnable = false;
@@ -272,10 +377,18 @@
 
   	$('.btn-know-word').on('click', function(e) {
   		e.preventDefault();
-  		if(!isLetterEnable)
+  		if(!isLetterEnable && !isSuperFinal)
   			return;
 
+  		$(this).hide();
+  		$('.fieldofdreams-letters__input').val('').show().focus();
+  	})
 
+  	$('.fieldofdreams-letters__input').on('keyup', function(e) {
+  		var code = e.which;
+  		if(code==13) {
+  			checkFullWord();
+  		}
   	})
 
   	// Случайное число в диапазоне
@@ -335,6 +448,7 @@
 
 		// Выпадение сектора "Приз"
 		function sectorPrize() {
+			// Выбрать приз
 			$('.btn-get-prize').on('click', function(e) {
 				e.preventDefault();
 				$('.fieldofdreams-game__prize').hide();
@@ -348,6 +462,7 @@
 				});
 			});
 
+			// Отказаться от приза
 			$('.btn-reject-prize').on('click', function(e) {
 				e.preventDefault();
 				$('.fieldofdreams-game__prize').hide();
@@ -410,7 +525,7 @@
 			    	// Если барабан запущен, продолжаем крутить равномерно рандомными шагами
 			    	if(isInfinite) {
 			    		easing = 'linear';
-			    		rotateSpeed = randomNumberFromRange(300, 1000);
+			    		rotateSpeed = randomNumberFromRange(300, 2000);
 			    		stepAngle = rotateSpeed/10;
 			    		animateRotate();
 			    	} 

@@ -178,6 +178,7 @@
                     <ul class="fieldofdreams-letters__list">
                       <li class="fieldofdreams-letters__btn">
                         <a href="#" class="btn btn-violet btn-know-word">Знаю слово!</a>
+                        <input type="text" class="fieldofdreams-letters__input input">
                       </li>
                     </ul>
                   </div><!-- /fieldofdreams-letters -->
@@ -192,45 +193,54 @@
 
           <div class="fieldofdreams-popup-overlay"></div>
 
+          <div class="fieldofdreams-popup-intro fieldofdreams-popup">
+            <div class="fieldofdreams-popup__inner">
+              <div class="fieldofdreams-popup-intro__welcome">добро пожаловать на</div>
+              <div class="fieldofdreams-popup-intro__title">Атомное поле чудес</div>
+              <div class="fieldofdreams-popup-intro__txt">В игре вам предстоит пройти 3 тура, финал и суперфинал. Чем больше уровень, тем сложнее вопросы. Покажи свои знания!</div>
+              <div class="fieldofdreams-popup-intro__buttons">
+                <a href="#" class="btn-white start-game">начать игру</a>
+              </div>
+            </div>
+          </div><!-- /fieldofdreams-popup-end -->
+
+          <div class="fieldofdreams-popup-congratulation">
+            <div class="fieldofdreams-popup-congratulation__inner">
+              <div class="fieldofdreams-popup-congratulation__title">Поздравляем!</div>
+              <div class="fieldofdreams-popup-congratulation__txt"></div>
+            </div>            
+          </div><!-- /fieldofdreams-popup-congratulation -->
+
           <div class="fieldofdreams-popup-end fieldofdreams-popup">
             <div class="fieldofdreams-popup__inner">
-              <div class="fieldofdreams-popup__title">Ура! Ты смог!</div>
+              <div class="fieldofdreams-popup__title">Поздравляем с победой!</div>
               <div class="fieldofdreams-popup-end__wrap">
-                <div class="fieldofdreams-popup-end__time">
-                  <span class="left">время разгадывания</span>
-                  <span class="right">01:20</span>
-                </div>
                 <div class="fieldofdreams-popup-end__best">
-                  <div class="fieldofdreams-popup-end__best-result">лучшее время</div>
-                  <div class="fieldofdreams-popup-end__best-time">01:12</div>
+                  <div class="fieldofdreams-popup-end__best-result">Набрано очков</div>
+                  <div class="fieldofdreams-popup-end__best-points">10000</div>
                 </div>
+                <div class="fieldofdreams-popup-end__result">
+                  <div class="fieldofdreams-popup-end__result-txt">лучший результат</div>
+                  <div class="fieldofdreams-popup-end__result-amount">3000</div>
+                </div>                
                 <div class="fieldofdreams-popup-end__retry">Испытай себя и Побей свой рекорд!</div>
               </div>                                   
               <div class="fieldofdreams-popup-end__buttons">
-                <a href="#" class="btn-white play-again" id="play-again">попробовать еще раз</a>
+                <a href="#" class="btn-white play-again">попробовать еще раз</a>
               </div>
             </div>
           </div><!-- /fieldofdreams-popup-end -->
 
-          <div class="fieldofdreams-popup-giveup fieldofdreams-popup">
+          <div class="fieldofdreams-popup-failed fieldofdreams-popup">
             <div class="fieldofdreams-popup__inner">
               <div class="fieldofdreams-popup__title">Конец игры</div>
-              <div class="fieldofdreams-popup-giveup__txt">Очень жаль...</div>
+              <div class="fieldofdreams-popup-failed__txt">Очень жаль...</div>
               <div class="fieldofdreams-popup-end__buttons">
-                <a href="#" class="btn-white play-again" id="play-again">попробовать еще раз</a>
+                <a href="#" class="btn-white play-again">попробовать еще раз</a>
               </div>
             </div>
           </div><!-- /fieldofdreams-popup-end -->
 
-          <div class="fieldofdreams-popup-error fieldofdreams-popup">
-            <div class="fieldofdreams-popup__inner">
-              <div class="fieldofdreams-popup__title">Есть ошибки!</div>
-              <div class="fieldofdreams-popup-error__error">Не все слова отгаданы верно.</div>
-              <div class="fieldofdreams-popup-end__buttons">
-                <a href="#" class="btn-white play-continue" id="play-continue">Продолжить разгадывать</a>
-              </div>
-            </div>
-          </div><!-- /fieldofdreams-popup-end -->
 
 
         </div><!-- /fieldofdreams-popups -->    
